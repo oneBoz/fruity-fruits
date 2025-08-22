@@ -2,10 +2,13 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import {useUser} from "@/app/contexts/UserContext";
+import {executeSignOut} from "@/app/firebase/firebaseAuth";
 
 const NavBar = () => {
     // menu open/close state
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const { userName, isLoggedIn } = useUser();
 
     // toggle menu
     const handleToggle = () => setIsOpen(true);
@@ -27,20 +30,44 @@ const NavBar = () => {
                         </Link>
                     </li>
                     <li className="nav__item">
-                        <a href="#mango" className="nav__link" onClick={handleLinkClick}>
-                            <i className="uil uil-message nav__icon"></i> Mango
+                        <a href="/pages/register" className="nav__link" onClick={handleLinkClick}>
+                            <i className="uil uil-message nav__icon"></i> Register
                         </a>
                     </li>
+
+                    {isLoggedIn ? (
+                        <li className="nav__item">
+                            <a className="nav__link" onClick={executeSignOut}>
+                                <i className="uil uil-message nav__icon"></i> Sign Out
+                            </a>
+                        </li>
+                    ) : (
+                        <li className="nav__item">
+                            <a href="/pages/login" className="nav__link" onClick={handleLinkClick}>
+                                <i className="uil uil-message nav__icon"></i> Login
+                            </a>
+                        </li>
+                    )}
                     <li className="nav__item">
-                        <a href="#cart" className="nav__link" onClick={handleLinkClick}>
+                        <a href="/pages/cart" className="nav__link" onClick={handleLinkClick}>
                             <i className="uil uil-shopping-bag nav__icon"></i> Cart
                         </a>
                     </li>
-                    <li className="nav__item">
-                        <a href="#contact" className="nav__link" onClick={handleLinkClick}>
-                            <i className="uil uil-message nav__icon"></i> Contact
-                        </a>
-                    </li>
+                    {isLoggedIn ? (
+                        <li className="nav__item">
+                            <a href="#Profile" className="nav__link" onClick={handleLinkClick}>
+                                <i className="uil uil-message nav__icon"></i> {userName}
+                            </a>
+                        </li>
+
+                    ) : (
+                        <li className="nav__item">
+                            <a href="#Profile" className="nav__link" onClick={handleLinkClick}>
+                                <i className="uil uil-message nav__icon"></i> Profile
+                            </a>
+                        </li>
+                    )}
+
                 </ul>
 
                 {/* Close button */}

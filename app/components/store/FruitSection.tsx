@@ -21,8 +21,7 @@ const FruitSection = ({id, name, imageSrc}: FruitSectionProps) => {
                 />
                 <h3 className="fruits__title">{name}</h3>
             </div>
-
-            <Link href={"/pages/inventory#" + id}>
+            <Link href={"/pages/inventory#" + name}>
                 <span className="button button--flex button--small button--link fruits__button">
                     Shop now
                     <i className="uil uil-arrow-right button__icon"></i>

@@ -1,6 +1,7 @@
 "use client"
 
 import FruitSection from "@/app/components/store/FruitSection";
+import {products} from "@/app/types/Products";
 
 const StoreSection = () => {
     return (
@@ -9,27 +10,9 @@ const StoreSection = () => {
             <span className="section__subtitle">What I sell</span>
 
             <div className="fruits__container container grid">
-                <FruitSection
-                    id={"apple"}
-                    name={"Apple"}
-                    imageSrc={"/images/fruits/apple/apple_icon.png"}
-                />
-                <FruitSection
-                    id={"orange"}
-                    name={"Orange"}
-                    imageSrc={"/images/fruits/orange/orange_icon.png"}
-                />
-                <FruitSection
-                    id={"banana"}
-                    name={"Banana"}
-                    imageSrc={"/images/fruits/banana/banana_icon.png"}
-                />
-                <FruitSection
-                    id={"mango"}
-                    name={"Mango"}
-                    imageSrc={"/images/fruits/mango/mango_icon.png"}
-                />
-
+                {products.map((i) => (
+                    <FruitSection imageSrc={i.imageSrc} name={i.name} id={i.id} key={i.id}></FruitSection>
+                ))}
             </div>
         </section>
     )
