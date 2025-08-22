@@ -461,8 +461,9 @@ img {
 
 .inventory__container{
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: max-content;
   align-items: center;
+  justify-content: center;
   gap: 2rem;
 }
 
@@ -612,11 +613,10 @@ img {
     padding-right: 3.5rem;
   }
 
-  .inventory__container{
-    grid-template-columns: max-content;
-    justify-content: center;
-  }
 
+}
+
+@media screen and (max-width: 767px){
   .inventory__container img{
     order: 1;
   }
@@ -628,7 +628,6 @@ img {
 /* For medium devices */
 @media screen and (min-width: 568px){
   .services__container,
-  .inventory__container,
   .footer__container{
     grid-template-columns: repeat(2, 1fr);
   }
@@ -697,6 +696,10 @@ img {
   }
   .fruits__content{
     padding: 6rem 0 2rem 2.5rem;
+  }
+
+  .inventory__container{
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .footer__container{

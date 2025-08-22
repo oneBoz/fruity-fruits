@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const Footer = () => {
     return (
         <footer className="footer">
@@ -10,13 +12,10 @@ const Footer = () => {
 
                     <ul className="footer__links">
                         <li>
-                            <a href="/" className="footer__link">Store</a>
+                            <Link href="/" className="footer__link">Store</Link>
                         </li>
                         <li>
-                            <a href="#mango" className="footer__link">Mango</a>
-                        </li>
-                        <li>
-                            <a href="/pages/cart" className="footer__link">Cart</a>
+                            <Link href="/pages/cart" className="footer__link">Cart</Link>
                         </li>
                         <li>
                             <a href="#contact" className="footer__link">Contactme</a>

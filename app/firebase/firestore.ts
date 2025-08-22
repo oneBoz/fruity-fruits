@@ -51,11 +51,14 @@ export async function checkout(
         productSnapshots.forEach((snap, index) => {
             const productRef = productRefs[index];
             const productData = snap.data();
-            const currentStock = productData.stock;
+            if (productData) {
+                const currentStock = productData.stock;
+                transaction.update(productRef, {
+                    stock: currentStock - items[index].quantity,
+                });
+            }
 
-            transaction.update(productRef, {
-                stock: currentStock - items[index].quantity,
-            });
+
         });
 
         // Step 5: Create order document

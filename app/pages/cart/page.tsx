@@ -116,7 +116,7 @@ export default function CartPage() {
                                 setErrorMessage("Cart is empty!")
                                 setIsSuccess(false);
                                 setIsOpen(true);
-                            } else if (uid.trim() === "") {
+                            } else if (uid && uid.trim() === "") {
                                 setErrorMessage("Please log in first!");
                                 setIsSuccess(false);
                                 setIsOpen(true);
