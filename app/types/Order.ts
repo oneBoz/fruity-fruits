@@ -5,10 +5,10 @@ interface Item {
 }
 
 export default interface Order {
-    id: number;
-    customerId: string;
-    productId: string;
+    id: string;
     items: Item[];
-    status: "pending" | "completed" | "rejected" | "delivered";
+    customerId: string;
     totalPrice: number;
+    status: "pending" | "completed" | "rejected" | "delivered";
+    createdAt: { seconds: number; nanoseconds: number };
 }

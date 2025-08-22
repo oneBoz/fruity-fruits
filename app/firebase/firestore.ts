@@ -1,5 +1,16 @@
-import {addDoc, collection, doc, runTransaction} from 'firebase/firestore';
+import {
+    addDoc,
+    collection,
+    doc,
+    getDocs,
+    orderBy,
+    query,
+    runTransaction,
+    serverTimestamp,
+    where
+} from 'firebase/firestore';
 import { db } from "./firebase"
+import Order from "@/app/types/Order";
 
 interface Item {
     productId: string;
@@ -67,10 +78,25 @@ export async function checkout(
             items,
             status,
             totalPrice,
-            createdAt: new Date(),
+            createdAt: serverTimestamp(),
         });
 
         return orderRef.id;
     });
+}
 
+export async function fetchOrders(uid: string) {
+    const ordersRef = collection(db, "orders");
+    const q = query(
+        ordersRef,
+        where("uid", "==", uid),
+        orderBy("createdAt", "desc") // latest first
+    );
+
+    const querySnapshot = await getDocs(q);
+    const userOrders = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+    })) as Order[];
+    return userOrders;
 }

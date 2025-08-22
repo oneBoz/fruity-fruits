@@ -20,7 +20,6 @@ function formatPrice(value: number) {
 }
 
 export default function CartPage() {
-    const [quantity, setQuantity] = useState<string>("");
     const { uid } = useUser();
     const { cart, removeFromCart, updateQuantity, clearCart } = useCart();
     const total = cart.reduce((acc, item) => acc + item.quantity*item.price, 0);
@@ -116,7 +115,7 @@ export default function CartPage() {
                                 setErrorMessage("Cart is empty!")
                                 setIsSuccess(false);
                                 setIsOpen(true);
-                            } else if (uid && uid.trim() === "") {
+                            } else if (!uid || uid.trim() === "") {
                                 setErrorMessage("Please log in first!");
                                 setIsSuccess(false);
                                 setIsOpen(true);

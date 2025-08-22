@@ -3,7 +3,6 @@ import {Snackbar} from "@mui/joy";
 import {useState} from "react";
 import {executeRegisterWithEmailAndPassword} from "@/app/firebase/firebaseAuth";
 import {FirebaseError} from "@firebase/app";
-import User from "@/app/types/User";
 
 const RegisterInput = () => {
     const [userName, setUserName] = useState("");

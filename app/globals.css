@@ -271,6 +271,10 @@ img {
   box-shadow: 0 -1px 4px rgba(0, 0, 0, .15);
 }
 
+.register__button{
+  background-color: violet;
+}
+
 /*==================== BUTTONS ====================*/
 .button{
   display: inline-block;
@@ -476,12 +480,12 @@ img {
   font-size: var(--h3-font-size);
   margin: 1px auto;
   padding: 0.5rem 1rem;
+  margin-bottom: var(--mb-0-5);
 }
 
 .inventory__button{
   margin-bottom: var(--mb-1-5);
   font-size: var(--h3-font-size);
-
 }
 
 .inventory__cart__icon{
@@ -511,6 +515,8 @@ img {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
 }
 
 .cart__arrow {
@@ -554,8 +560,8 @@ img {
   flex-direction: column;
   align-items: center;
   font-family: "Poppins", sans-serif;
-  font-size: 1.5rem;
   font-weight: 600;
+  text-align: center;
 }
 
 .cart__item__quantity{
@@ -588,6 +594,20 @@ img {
   font-size: 1rem;
 }
 
+.transaction__table{
+  border-collapse: collapse;
+  border-spacing: 0 15px;
+  border: 1px solid darkgray;
+}
+
+.transaction__table th,
+.transaction__table td{
+  text-align: center;
+  vertical-align: middle;
+  padding: 0.5rem;
+  border: 1px solid darkgray;
+}
+
 /*==================== MEDIA QUERIES ====================*/
 /* For small devices */
 @media screen and (max-width: 350px){
@@ -613,7 +633,6 @@ img {
     padding-right: 3.5rem;
   }
 
-
 }
 
 @media screen and (max-width: 767px){
@@ -622,6 +641,25 @@ img {
   }
   .inventory__data{
     order: 2;
+  }
+
+  .hide-mobile{
+    display: none;
+  }
+
+  .cart__btns .cart__arrow,
+  .cart__btns button {
+    padding: 0.25rem 0.35rem; /* smaller padding */
+    font-size: 0.75rem;       /* smaller text/icon size */
+    width: 30px;              /* optional fixed width */
+    height: 30px;             /* optional fixed height */
+
+  }
+
+  .cart__btns,
+  .cart__arrow i,
+  .cart__btns button i{
+    font-size: 1rem;
   }
 }
 
