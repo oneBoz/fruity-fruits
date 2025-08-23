@@ -24,7 +24,7 @@ const SalesTable = ({orders, users}: SalesTableProps) => {
                 <thead className="bg-gray-100">
                 <tr>
                     <th className="border hide-mobile">Order ID</th>
-                    <th className="border hide-mobile">Customer</th>
+                    <th className="border">Customer</th>
                     <th className="border hide-mobile">Status</th>
                     <th className="border border-gray-200 px-4 py-2">Total</th>
                     <th className="border hide-mobile">Date</th>
