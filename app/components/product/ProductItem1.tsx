@@ -2,17 +2,19 @@
 
 import {Chip, Snackbar} from "@mui/joy";
 import {useCart} from "@/app/contexts/CartContext";
-import { useState } from "react";
+import {useState} from "react";
 import {products} from "@/app/types/Products";
 
-type InventoryItem1Props = {
+type ProductItem1Props = {
     imageSrc: string;
     name: string;
     id: string;
     price: number;
+    stock: number;
 };
 
-const InventoryItem1 = ({id, name, imageSrc, price}: InventoryItem1Props) => {
+
+const ProductItem1 = ({id, name, imageSrc, price, stock}: ProductItem1Props) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const price_formatted = price.toLocaleString("en-SG", {
@@ -24,13 +26,15 @@ const InventoryItem1 = ({id, name, imageSrc, price}: InventoryItem1Props) => {
 
     return (
         <section id={id} className={"section"}>
-            <div className="inventory__bg">
-                <div className="inventory__container container grid">
-                    <div className="inventory__data">
-                        <h2 className="inventory__title">{name}</h2>
-                        <Chip className="inventory__price">{price_formatted}</Chip>
+            <div className="product__bg">
+                <div className="product__container container grid">
+                    <img src={imageSrc} alt="image" className="product__img"/>
+                    <div className="product__data">
+                        <h2 className="product__title">{name}</h2>
+                        <Chip className="product__price">{price_formatted}</Chip>
+                        {stock} Left !
                         <button
-                            className="inventory__button button button--small"
+                            className="product__button button button--small"
                             onClick={() => {
                                 addToCart({
                                     id: products.filter((i) => i.name === name)[0].id,
@@ -39,10 +43,9 @@ const InventoryItem1 = ({id, name, imageSrc, price}: InventoryItem1Props) => {
                             }}
                         >
                             Add to cart
-                            <i className="uil uil-shopping-cart inventory__cart__icon"></i>
+                            <i className="uil uil-shopping-cart product__cart__icon"></i>
                         </button>
                     </div>
-                    <img src={imageSrc} alt="image" className="inventory__img"/>
                 </div>
             </div>
             <Snackbar
@@ -59,4 +62,4 @@ const InventoryItem1 = ({id, name, imageSrc, price}: InventoryItem1Props) => {
     )
 }
 
-export default InventoryItem1;
+export default ProductItem1;

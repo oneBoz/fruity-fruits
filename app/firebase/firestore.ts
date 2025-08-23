@@ -6,11 +6,14 @@ import {
     orderBy,
     query,
     runTransaction,
-    serverTimestamp,
+    serverTimestamp, updateDoc,
     where
 } from 'firebase/firestore';
 import { db } from "./firebase"
 import Order from "@/app/types/Order";
+import Product from "@/app/types/Product";
+import User from "@/app/types/User";
+import {getDoc} from "@firebase/firestore";
 
 interface Item {
     productId: string;
@@ -85,7 +88,7 @@ export async function checkout(
     });
 }
 
-export async function fetchOrders(uid: string) {
+export async function fetchOrdersByUid(uid: string) {
     const ordersRef = collection(db, "orders");
     const q = query(
         ordersRef,
@@ -99,4 +102,48 @@ export async function fetchOrders(uid: string) {
         ...doc.data(),
     })) as Order[];
     return userOrders;
+}
+
+export async function fetchOrders() {
+    const ordersRef = collection(db, "orders");
+    const q = query(
+        ordersRef,
+        orderBy("createdAt", "desc")
+    );
+    const querySnapshot = await getDocs(q);
+    const userOrders = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+    })) as Order[];
+    return userOrders;
+}
+
+export async function fetchUsers() {
+    const usersRef = collection(db, "users");
+    const usersSnapshot = await getDocs(usersRef);
+    const users = usersSnapshot.docs.map((doc) => ({
+        ...doc.data(),
+    })) as User[];
+    return users;
+}
+
+export async function fetchProducts() {
+    const productsRef = collection(db, "products");
+    const productsSnapshot = await getDocs(productsRef);
+    const products = productsSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+    })) as Product[];
+    return products;
+}
+
+export async function updateProduct(id: string, product: Product) {
+    const productRef = doc(db, "products", id);
+    const docSnap = await getDoc(productRef);
+    if (!docSnap.exists()) {
+        throw new Error(`Product with ID ${id} does not exist`);
+    }
+    // Update only the fields present in "product"
+    await updateDoc(productRef, { ...product });
+
 }

@@ -1,34 +1,52 @@
 "use client";
 
-import { useState } from "react";
+import {useState} from "react";
 import Link from "next/link";
 import {useUser} from "@/app/contexts/UserContext";
 import {executeSignOut} from "@/app/firebase/firebaseAuth";
 import {DialogTitle, Modal, ModalDialog} from "@mui/joy";
 
 const NavBar = () => {
-    // menu open/close state
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    const { userName, isLoggedIn } = useUser();
+    const { userName, isLoggedIn, isOwner } = useUser();
 
-    // toggle menu
     const handleToggle = () => setIsOpen(true);
     const handleClose = () => setIsOpen(false);
 
-    // close menu when clicking a nav link
     const handleLinkClick = () => setIsOpen(false);
 
     return (
         <nav className="nav container">
-            <a href="#" className="nav__logo">FruityFruits</a>
+            <Link href="/" className="nav__logo">FruityFruits</Link>
 
             {/* Menu */}
             <div className={`nav__menu ${isOpen ? "show-menu" : ""}`} id="nav-menu">
                 <ul className="nav__list grid">
+                    {isLoggedIn && isOwner && (
+                        <li className="nav__item">
+                            <Link href="/pages/sales" className="nav__link" onClick={handleLinkClick}>
+                                <i className="uil uil-parcel nav__icon"></i> Sales
+                            </Link>
+                        </li>
+                    )}
+                    {isLoggedIn && isOwner && (
+                        <li className="nav__item">
+                            <Link href="/pages/inventory" className="nav__link" onClick={handleLinkClick}>
+                                <i className="uil uil-parcel nav__icon"></i> Inventory
+                            </Link>
+                        </li>
+                    )}
+                    {isLoggedIn && (
+                        <li className="nav__item">
+                            <Link href="/pages/orderHistory" className="nav__link" onClick={handleLinkClick}>
+                                <i className="uil uil-parcel nav__icon"></i> Order history
+                            </Link>
+                        </li>
+                    )}
                     <li className="nav__item">
-                        <Link href="/#store" className="nav__link" onClick={handleLinkClick}>
-                            <i className="uil uil-estate nav__icon"></i> Store
+                        <Link href="/pages/product" className="nav__link" onClick={handleLinkClick}>
+                            <i className="uil uil-box nav__icon"></i> Products
                         </Link>
                     </li>
                     {!isLoggedIn && (
@@ -51,13 +69,6 @@ const NavBar = () => {
                             <i className="uil uil-shopping-bag nav__icon"></i> Cart
                         </Link>
                     </li>
-                    {isLoggedIn && (
-                        <li className="nav__item">
-                            <Link href="/pages/pastTransaction" className="nav__link" onClick={handleLinkClick}>
-                                <i className="uil uil-parcel nav__icon"></i> View orders
-                            </Link>
-                        </li>
-                    )}
                     {isLoggedIn && (
                         <li className="nav__item">
                             <Link href="#Profile" className="nav__link" onClick={() => setIsModalOpen(true)}>
@@ -99,19 +110,11 @@ const NavBar = () => {
                         alignItems: "center"
                     }}>{userName}</DialogTitle>
                     <button
-                        className="button button--small register__button"
-                        onClick={() => {
-                            setIsModalOpen(false);
-                            window.location.href = "/pages/register";
-                        }}
-                    >
-                        Register
-                    </button>
-                    <button
                         className="button button--small"
                         onClick={() => {
                             setIsModalOpen(false);
                             executeSignOut();
+                            window.location.href="/pages/login";
                         }}
                     >
                         Sign out

@@ -1,12 +1,11 @@
-"use client"
 import Order from "@/app/types/Order";
 import {products} from "@/app/types/Products";
 
-interface TransactionTableProps {
+interface HistoryTableProps {
     orders: Order[];
 }
 
-const TransactionTable = ({orders}: TransactionTableProps) => {
+const HistoryTable = ({orders}: HistoryTableProps) => {
     return (
         <div className="container grid">
             <table className="transaction__table">
@@ -47,4 +46,4 @@ const TransactionTable = ({orders}: TransactionTableProps) => {
     )
 }
 
-export default TransactionTable;
+export default HistoryTable;

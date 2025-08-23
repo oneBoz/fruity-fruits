@@ -1,14 +1,17 @@
 "use client"
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { auth } from "@/app/firebase/firebase";
+import { auth, db } from "@/app/firebase/firebase";
 import { onAuthStateChanged, User as FireBaseUser } from "firebase/auth";
+import {getDoc, doc} from "@firebase/firestore";
+import User from "@/app/types/User";
 
 type UserContextType = {
     uid: string | null;
     userName: string | null;
     email: string | null;
     isLoggedIn: boolean;
+    isOwner: boolean | null;
 }
 
 const UserContext = createContext<UserContextType>({
@@ -16,6 +19,7 @@ const UserContext = createContext<UserContextType>({
     userName: "",
     email: "",
     isLoggedIn: false,
+    isOwner: null,
 });
 
 export const UserAuthContextProvider = ({children}: { children: React.ReactNode }) => {
@@ -24,12 +28,14 @@ export const UserAuthContextProvider = ({children}: { children: React.ReactNode 
     const [email, setEmail] = useState<string | null>("");
     const [userName, setUserName] = useState<string | null>("");
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+    const [isOwner, setIsOwner] = useState<boolean | null>(null);
 
     const resetUserStatus = () => {
         setUserName("");
         setEmail("");
         setUid("");
         setIsLoggedIn(false);
+        setIsOwner(null);
     }
 
     // On page update listen if the auth state has changed on firebase
@@ -40,6 +46,12 @@ export const UserAuthContextProvider = ({children}: { children: React.ReactNode 
                 setEmail(currentUser.email);
                 setUserName(currentUser.displayName)
                 setIsLoggedIn(true);
+                const docRef = doc(db, "users", currentUser.uid);
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    const user = docSnap.data() as User;
+                    setIsOwner(user.role === "owner");
+                }
             } else {
                 resetUserStatus()
             }
@@ -53,7 +65,7 @@ export const UserAuthContextProvider = ({children}: { children: React.ReactNode 
 
 
     return (
-        <UserContext.Provider value = {{uid, userName, email, isLoggedIn}}>
+        <UserContext.Provider value = {{uid, userName, email, isLoggedIn, isOwner}}>
             {children}
         </UserContext.Provider>
     );

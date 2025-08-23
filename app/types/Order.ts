@@ -7,7 +7,7 @@ interface Item {
 export default interface Order {
     id: string;
     items: Item[];
-    customerId: string;
+    uid: string;
     totalPrice: number;
     status: "pending" | "completed" | "rejected" | "delivered";
     createdAt: { seconds: number; nanoseconds: number };

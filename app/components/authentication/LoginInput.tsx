@@ -7,7 +7,7 @@ import {FirebaseError} from "@firebase/app";
 const LoginInput = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [logInSuccess, setLogInSuccess] = useState(false);
+    const [isLogInSuccess, setIsLogInSuccess] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [isOpen, setIsOpen] = useState(false);
 
@@ -18,15 +18,16 @@ const LoginInput = () => {
             try {
                 await executeSignInWithEmailAndPassword(email, password);
                 setErrorMessage("");
-                setLogInSuccess(true);
-                setIsOpen(true)
+                setIsLogInSuccess(true);
+                setIsOpen(true);
+                window.location.href="/";
             } catch (loginError) {
                 if (loginError instanceof FirebaseError) {
                     handleLoginError(loginError.code);
                 } else {
                     handleLoginError("unknown error");
                 }
-                setIsOpen(true)
+                setIsOpen(true);
             }
         }
     };
@@ -92,11 +93,11 @@ const LoginInput = () => {
                     open={isOpen}
                     autoHideDuration={2000}
                     onClose={() => {setIsOpen(false)}}
-                    color={logInSuccess? "success" : "danger"}
+                    color={isLogInSuccess? "success" : "danger"}
                     variant="soft"
                     anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
                 >
-                    {logInSuccess? "log in success!" : errorMessage}
+                    {isLogInSuccess? "log in success!" : errorMessage}
                 </Snackbar>
             </div>
         </main>
