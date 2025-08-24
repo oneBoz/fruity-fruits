@@ -20,7 +20,7 @@
 
 ## Getting Started
 ### Option 1:
-Open [fruity-fruits.vercel.app](fruity-fruits.vercel.app) for demo
+Open https://fruity-fruits.vercel.app/ for demo
 
 Create your user account or use the given owner account:
 
