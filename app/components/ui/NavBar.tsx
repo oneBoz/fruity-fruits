@@ -1,6 +1,6 @@
 "use client";
 
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import Link from "next/link";
 import {useUser} from "@/app/contexts/UserContext";
 import {executeSignOut} from "@/app/firebase/firebaseAuth";
@@ -15,6 +15,29 @@ const NavBar = () => {
     const handleClose = () => setIsOpen(false);
 
     const handleLinkClick = () => setIsOpen(false);
+
+    const darkTheme = 'dark-theme'
+    const [theme, setTheme] = useState<"light" | "dark">("light");
+
+    useEffect(() => {
+        // Load saved theme
+        const savedTheme = localStorage.getItem("selected-theme") as "light" | "dark" | null;
+        if (savedTheme) {
+            setTheme(savedTheme);
+            document.body.classList.toggle(darkTheme, savedTheme === "dark");
+        }
+    }, []);
+
+    const toggleTheme = () => {
+        const newTheme = theme === "dark" ? "light" : "dark";
+        setTheme(newTheme);
+
+        // Toggle the class on <body>
+        document.body.classList.toggle(darkTheme, newTheme === "dark");
+
+        // Save preference
+        localStorage.setItem("selected-theme", newTheme);
+    };
 
     return (
         <nav className="nav container">
@@ -89,13 +112,18 @@ const NavBar = () => {
             {/* Right side buttons */}
             <div className="nav__btns">
                 {/* Theme change button */}
-                <i className="uil uil-moon change-theme" id="theme-button"></i>
+                <i
+                    className={`uil ${theme === "dark" ? "uil-sun" : "uil-moon"} change-theme`} id="theme-button"
+                    onClick={toggleTheme}
+                >
+
+                </i>
 
                 {/* Toggle button */}
                 <div
                     className="nav__toggle"
                     id="nav-toggle"
-                    onClick={handleToggle}
+                    onClick={() => handleToggle()}
                 >
                     <i className="uil uil-apps"></i>
                 </div>
