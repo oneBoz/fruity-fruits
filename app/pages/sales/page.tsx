@@ -24,7 +24,6 @@ export default function Home() {
     return (
         <section className="sales section">
             <SalesTable orders={orders} users={users}></SalesTable>
-
         </section>
     )
 }

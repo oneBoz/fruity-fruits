@@ -34,6 +34,13 @@ export default function Home() {
             setIsOpen(true);
             return;
         }
+        if (stock < 1) {
+            setErrorMessage("Quantity must be greater than 0");
+            setIsUpdated(false);
+            setIsOpen(true);
+            return;
+        }
+
         const newProduct = {...prevProduct, stock: stock};
         await updateProduct(newProduct.id, newProduct);
         setIsUpdated(true);
@@ -46,6 +53,7 @@ export default function Home() {
             <Stack
                 direction="row"
                 className="container"
+                columnGap={"1rem"}
             >
                 <Autocomplete
                     options={products.map((product) => product.name)}
