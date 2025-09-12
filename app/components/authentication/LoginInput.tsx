@@ -3,6 +3,7 @@ import {Snackbar} from "@mui/joy";
 import {useState} from "react";
 import {executeSignInWithEmailAndPassword} from "@/app/firebase/firebaseAuth";
 import {FirebaseError} from "@firebase/app";
+import {useRouter} from "next/navigation";
 
 const LoginInput = () => {
     const [email, setEmail] = useState("");
@@ -10,6 +11,8 @@ const LoginInput = () => {
     const [isLogInSuccess, setIsLogInSuccess] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [isOpen, setIsOpen] = useState(false);
+
+    const router = useRouter();
 
     const handleSubmit = async () => {
         if (email.trim() == "" || password.trim() == "") {
@@ -20,7 +23,7 @@ const LoginInput = () => {
                 setErrorMessage("");
                 setIsLogInSuccess(true);
                 setIsOpen(true);
-                window.location.href="/";
+                router.push("/")
             } catch (loginError) {
                 if (loginError instanceof FirebaseError) {
                     handleLoginError(loginError.code);

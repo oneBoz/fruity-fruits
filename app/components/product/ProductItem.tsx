@@ -2,10 +2,10 @@
 
 import {Chip, Snackbar} from "@mui/joy";
 import {useCart} from "@/app/contexts/CartContext";
-import { useState } from "react";
+import {useState} from "react";
 import {products} from "@/app/types/Products";
 
-type ProductItem2Props = {
+type ProductItem1Props = {
     imageSrc: string;
     name: string;
     id: string;
@@ -13,7 +13,8 @@ type ProductItem2Props = {
     stock: number;
 };
 
-const ProductItem2 = ({id, name, imageSrc, price, stock}: ProductItem2Props) => {
+
+const ProductItem = ({id, name, imageSrc, price, stock}: ProductItem1Props) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const price_formatted = price.toLocaleString("en-SG", {
@@ -27,6 +28,7 @@ const ProductItem2 = ({id, name, imageSrc, price, stock}: ProductItem2Props) => 
         <section id={id} className={"section"}>
             <div className="product__bg">
                 <div className="product__container container grid">
+                    <img src={imageSrc} alt="image" className="product__img"/>
                     <div className="product__data">
                         <h2 className="product__title">{name}</h2>
                         <Chip className="product__price">{price_formatted}</Chip>
@@ -44,7 +46,6 @@ const ProductItem2 = ({id, name, imageSrc, price, stock}: ProductItem2Props) => 
                             <i className="uil uil-shopping-cart product__cart__icon"></i>
                         </button>
                     </div>
-                    <img src={imageSrc} alt="image" className="product__img"/>
                 </div>
             </div>
             <Snackbar
@@ -61,4 +62,4 @@ const ProductItem2 = ({id, name, imageSrc, price, stock}: ProductItem2Props) => 
     )
 }
 
-export default ProductItem2;
+export default ProductItem;

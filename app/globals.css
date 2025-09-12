@@ -107,10 +107,6 @@ body.dark-theme {
     margin: 0;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
 body {
     margin: 0 0 var(--header-height) 0;
     font-family: var(--body-font);
@@ -741,8 +737,18 @@ img {
     }
 
     .product__container {
+        display: grid;
         grid-template-columns: repeat(2, 1fr);
     }
+
+    /* Even sections: swap image/text */
+    .section:nth-child(even) .product__container img {
+        order: 2;
+    }
+    .section:nth-child(even) .product__container .product__data {
+        order: 1;
+    }
+
 
     .footer__container {
         grid-template-columns: repeat(3, 1fr);

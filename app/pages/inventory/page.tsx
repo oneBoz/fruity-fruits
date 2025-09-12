@@ -7,6 +7,7 @@ import {useEffect, useState} from "react";
 import {useUser} from "@/app/contexts/UserContext";
 import {Autocomplete, Button, Input, Snackbar, Stack} from "@mui/joy";
 import {updateProduct} from "@/app/firebase/firestore";
+import Error from "next/error";
 
 export default function Home() {
     const [products, setProducts] = useState<Product[]>([]);
@@ -18,13 +19,11 @@ export default function Home() {
     const {isOwner} = useUser();
 
     useEffect(() => {
-        if (isOwner === false) {
-            window.location.href = "/";
-        } else if (isOwner === true) {
+        if (isOwner === true) {
             fetchProducts().then(setProducts);
         }
 
-    }, [isOwner, isOpen]);
+    }, [products, isOwner]);
 
     async function changeQuantity(productName: string, stock: number) {
         const prevProduct = products.find((product) => product.name === productName);
@@ -47,7 +46,10 @@ export default function Home() {
         setIsOpen(true);
     }
 
+
+
     return (
+        isOwner ? (
         <section className="inventory section">
             <InventoryTable products={products}/>
             <Stack
@@ -86,6 +88,8 @@ export default function Home() {
                     {isUpdated? "changed successfully!" : errorMessage}
                 </Snackbar>
             </Stack>
-        </section>
+        </section>) : (
+            <Error statusCode={404} />
+        )
     )
 }

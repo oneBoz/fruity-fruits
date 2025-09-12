@@ -6,24 +6,31 @@ import SalesTable from "@/app/components/sales/SalesTable";
 import Order from "@/app/types/Order";
 import User from "@/app/types/User";
 import {useUser} from "@/app/contexts/UserContext";
+import {useRouter} from "next/navigation";
+import Error from "next/error";
 
 export default function Home() {
     const [orders, setOrders] = useState<Order[]>([]);
     const [users, setUsers] = useState<User[]>([]);
     const { isOwner } = useUser();
 
+    const router = useRouter();
+
     useEffect(() => {
-        if (isOwner === false) {
-            window.location.href = "/";
-        } else if (isOwner === true) {
+        if (isOwner === true) {
             fetchOrders().then(setOrders);
             fetchUsers().then(setUsers);
         }
 
-    }, [isOwner]);
+    }, [orders, isOwner]);
+
     return (
-        <section className="sales section">
-            <SalesTable orders={orders} users={users}></SalesTable>
-        </section>
+        isOwner ? (
+            <section className="sales section">
+                <SalesTable orders={orders} users={users}></SalesTable>
+            </section>
+        ) : (
+            <Error statusCode={404} />
+        )
     )
 }
