@@ -112,28 +112,31 @@ export default function Home() {
 
                         <div className="product__inputs grid">
                             <div className="product__content">
-                                <label className="product__label">Product Name</label>
+                                <label className="product__label" htmlFor="productName">Product Name</label>
                                 <input
                                     type="text"
                                     className="product__input"
+                                    id="productName"
                                     value={productName}
                                     onChange={(e) => setProductName(e.target.value)}
                                 />
                             </div>
                             <div className="product__content">
-                                <label className="product__label">Product price</label>
+                                <label className="product__label" htmlFor="productPrice">Product price</label>
                                 <input
                                     type="number"
                                     className="product__input"
+                                    id="productPrice"
                                     value={productPrice}
                                     onChange={(e) => setProductPrice(e.target.value)}
                                 />
                             </div>
                             <div className="product__content">
-                                <label className="product__label">Product quantity</label>
+                                <label className="product__label" htmlFor={"productQuantity"}>Product quantity</label>
                                 <input
                                     type="number"
                                     className="product__input"
+                                    id="productQuantity"
                                     value={productQuantity}
                                     onChange={(e) => setProductQuantity(e.target.value)}
                                 />

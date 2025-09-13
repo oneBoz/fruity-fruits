@@ -108,6 +108,7 @@ export default function Home() {
                     onChange={(event) => setTargetStock(Number(event.target.value))}
                     type="number"
                     placeholder="Enter Number"
+                    id="stock"
                 />
                 <Button
                     sx={{
