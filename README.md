@@ -28,6 +28,9 @@ Create your user account or use the given owner account:
 Owner acc:
 email: publicfinalstaticvoidmain@gmail.com
 pw: owner123
+
+email: xenia@gmail.com
+pw: test123
 ```
 
 ### Option 2:
