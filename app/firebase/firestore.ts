@@ -1,19 +1,20 @@
 import {
     addDoc,
     collection,
-    doc,
+    doc, getCountFromServer,
     getDocs,
     orderBy,
     query,
     runTransaction,
-    serverTimestamp, updateDoc,
+    serverTimestamp, setDoc, updateDoc,
     where
 } from 'firebase/firestore';
 import { db } from "./firebase"
 import Order from "@/app/types/Order";
 import Product from "@/app/types/Product";
 import User from "@/app/types/User";
-import {getDoc} from "@firebase/firestore";
+import {getDoc, getFirestore} from "@firebase/firestore";
+import {uploadImage} from "@/app/firebase/storage";
 
 interface Item {
     productId: string;
@@ -135,6 +136,29 @@ export async function fetchProducts() {
         ...doc.data(),
     })) as Product[];
     return products;
+}
+
+export async function getCollectionCount(colName: string) {
+    const db = getFirestore();
+    const col = collection(db, colName);
+    const snapshot = await getCountFromServer(col);
+    return snapshot.data().count;
+}
+
+export async function addProduct(
+    name: string,
+    price: number,
+    quantity: number,
+    url: string
+) {
+    const productRef = await addDoc(collection(db, "products"), {
+        name,
+        price,
+        stock: quantity,
+        imageSrc: url,
+        isPresent: true,
+    });
+    await updateDoc(productRef, { id: productRef.id });
 }
 
 export async function updateProduct(id: string, product: Product) {

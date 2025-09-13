@@ -3,9 +3,9 @@
 import {Chip, Snackbar} from "@mui/joy";
 import {useCart} from "@/app/contexts/CartContext";
 import {useState} from "react";
-import {products} from "@/app/types/Products";
+import Image from "next/image";
 
-type ProductItem1Props = {
+type ProductItemProps = {
     imageSrc: string;
     name: string;
     id: string;
@@ -14,7 +14,7 @@ type ProductItem1Props = {
 };
 
 
-const ProductItem = ({id, name, imageSrc, price, stock}: ProductItem1Props) => {
+const ProductItem = ({id, name, imageSrc, price, stock}: ProductItemProps) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const price_formatted = price.toLocaleString("en-SG", {
@@ -28,7 +28,7 @@ const ProductItem = ({id, name, imageSrc, price, stock}: ProductItem1Props) => {
         <section id={id} className={"section"}>
             <div className="product__bg">
                 <div className="product__container container grid">
-                    <img src={imageSrc} alt="image" className="product__img"/>
+                    <Image src={imageSrc} alt="image" className="product__img" width={170} height={170} />
                     <div className="product__data">
                         <h2 className="product__title">{name}</h2>
                         <Chip className="product__price">{price_formatted}</Chip>
@@ -37,7 +37,7 @@ const ProductItem = ({id, name, imageSrc, price, stock}: ProductItem1Props) => {
                             className="product__button button button--small"
                             onClick={() => {
                                 addToCart({
-                                    id: products.filter((i) => i.name === name)[0].id,
+                                    id: id,
                                     name: name, price: price, quantity: 1, imageSrc: imageSrc });
                                 setIsOpen(true);
                             }}

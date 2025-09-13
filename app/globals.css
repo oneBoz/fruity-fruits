@@ -363,7 +363,7 @@ img {
 }
 
 
-/*==================== CONTACT ME ====================*/
+/*==================== LOGIN ====================*/
 .login__container {
     row-gap: 3rem;
 }
@@ -495,6 +495,8 @@ img {
     justify-self: center;
 }
 
+/*==================== CART ====================*/
+
 .cart__title {
     font-size: var(--h1-font-size);
 }
@@ -591,6 +593,8 @@ img {
     font-size: 1rem;
 }
 
+/*==================== TRANSACTION ====================*/
+
 .transaction__table {
     border-collapse: collapse;
     border-spacing: 0 15px;
@@ -604,6 +608,84 @@ img {
     padding: 0.5rem;
     border: 1px solid darkgray;
 }
+
+/*==================== ADD PRODUCT ====================*/
+
+.product__content {
+    background-color: var(--input-color);
+    border-radius: .5rem;
+    padding: .75rem 1rem .25rem;
+}
+
+.product__label {
+    font-size: var(--smaller-font-size);
+    color: var(--title-color);
+}
+
+.product__input {
+    width: 100%;
+    background-color: var(--input-color);
+    color: var(--text-color);
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+    border: none;
+    outline: none;
+    padding: .25rem .5rem .5rem 0;
+}
+
+.add__product__container {
+    grid-template-columns: 1fr; /* stack into 1 column */
+    gap: 1rem;
+    padding: .75rem 1rem .25rem;
+    justify-content: center;
+}
+
+.add__product__image {
+    aspect-ratio: 1/1;
+    margin: 20px auto;
+    align-content: center;
+    justify-self: center;
+}
+
+.add__product__form {
+    align-content: center;
+}
+
+.product__drag__area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+    margin: 50px auto;
+    column-gap: 3rem;
+    border: 2px dashed #aaa;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.product__drag__area:hover {
+    border-color: var(--first-color-alt);
+    background: var(--input-color);
+}
+
+.product__drag__area.dragging {
+    border-color: var(--first-color-alt);
+    background: var(--input-color);
+}
+
+.drag__hint {
+    font-size: 12px;
+    color: #777;
+    margin-top: 8px;
+}
+
+.back__button,
+.add__product__button {
+    margin: 1rem auto;
+}
+
 
 /*==================== MEDIA QUERIES ====================*/
 /* For small devices */
@@ -749,6 +831,10 @@ img {
         order: 1;
     }
 
+    .add__product__form {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
 
     .footer__container {
         grid-template-columns: repeat(3, 1fr);

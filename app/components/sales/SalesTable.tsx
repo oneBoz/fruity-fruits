@@ -1,6 +1,8 @@
 import Order from "@/app/types/Order";
 import User from "@/app/types/User";
-import {products} from "@/app/types/Products";
+import {useEffect, useState} from "react";
+import Product from "@/app/types/Product";
+import {fetchProducts} from "@/app/firebase/firestore";
 
 interface SalesTableProps {
     orders: Order[];
@@ -9,6 +11,12 @@ interface SalesTableProps {
 
 const SalesTable = ({orders, users}: SalesTableProps) => {
     const userMap = new Map(users.map(user => [user.uid, user.userName]));
+
+    const [products, setProducts] = useState<Product[]>([]);
+
+    useEffect(() => {
+        fetchProducts().then(setProducts);
+    }, [])
 
     const sales = orders.map(order => ({
         customerName: userMap.get(order.uid),
@@ -48,7 +56,7 @@ const SalesTable = ({orders, users}: SalesTableProps) => {
                         <td className="">
                             {sale.items.map((item, index) => (
                                 <div key={index}>
-                                    • {products.filter((p) => p.id === item.productId)[0].name} x{item.quantity} (${item.price})
+                                    • {(products.find((p) => p.id === item.productId)?.name || "Unknown")} x{item.quantity} (${item.price})
                                 </div>
                             ))}
                         </td>

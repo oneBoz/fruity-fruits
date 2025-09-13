@@ -1,4 +1,6 @@
 import Product from "@/app/types/Product";
+import Link from "next/link";
+import {Autocomplete, Stack} from "@mui/joy";
 
 interface InventoryTableProps {
     products: Product[];
@@ -20,7 +22,13 @@ const InventoryTable = ({products}: InventoryTableProps) => {
                 {products.map((product) => (
                     <tr key={product.id} className="transaction__table__row">
                         <td className="hide-mobile">{product.id}</td>
-                        <td className="">{product.name}</td>
+                        {product.isPresent ?
+                            (
+                                <td className="">{product.name}</td>
+                            ) : (
+                                <td className="">{product.name + "(hidden)"}</td>
+                            )
+                        }
                         <td className="">
                             ${product.price.toFixed(2)}
                         </td>
@@ -29,7 +37,7 @@ const InventoryTable = ({products}: InventoryTableProps) => {
                 ))}
                 </tbody>
             </table>
-            <h2 className="section__title">Change stock</h2>
+
         </div>
     )
 }

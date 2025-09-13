@@ -4,4 +4,5 @@ export default interface Product {
     price: number;
     imageSrc: string;
     stock: number;
+    isPresent: boolean;
 }

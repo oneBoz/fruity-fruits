@@ -13,7 +13,8 @@ const FruitSection = ({id, name, imageSrc}: FruitSectionProps) => {
     return (
         <div className="fruits__content">
             <div>
-                <Image className="fruits__img"
+                <Image
+                    className="fruits__img"
                     src={imageSrc}
                     width={170}
                     height={170}

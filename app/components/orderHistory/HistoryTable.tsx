@@ -1,11 +1,18 @@
 import Order from "@/app/types/Order";
-import {products} from "@/app/types/Products";
+import {useEffect, useState} from "react";
+import Product from "@/app/types/Product";
+import {fetchProducts} from "@/app/firebase/firestore";
 
 interface HistoryTableProps {
     orders: Order[];
 }
 
 const HistoryTable = ({orders}: HistoryTableProps) => {
+    const [products, setProducts] = useState<Product[]>([]);
+
+    useEffect(() => {
+        fetchProducts().then(setProducts);
+    }, [])
     return (
         <div className="container grid">
             <table className="transaction__table">
@@ -34,7 +41,7 @@ const HistoryTable = ({orders}: HistoryTableProps) => {
                         <td className="">
                             {order.items.map((item, index) => (
                                 <div key={index}>
-                                    • {products.filter((p) => p.id === item.productId)[0].name} x{item.quantity} (${item.price})
+                                    • {(products.find((p) => p.id === item.productId)?.name || "Unknown")} x{item.quantity} (${item.price})
                                 </div>
                             ))}
                         </td>
