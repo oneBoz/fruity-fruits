@@ -70,19 +70,21 @@ const LoginInput = () => {
                 >
                     <div className="login__inputs grid">
                         <div className="login__content">
-                            <label className="login__label">Email</label>
+                            <label className="login__label" htmlFor={"email"}>Email</label>
                             <input
                                 type="text"
                                 className="login__input"
+                                id="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                             />
                         </div>
                         <div className="login__content">
-                            <label className="login__label">Password</label>
+                            <label className="login__label" htmlFor="password">Password</label>
                             <input 
                                 type="text"
                                 className="login__input"
+                                id="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />

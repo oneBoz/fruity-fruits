@@ -77,38 +77,42 @@ const RegisterInput = () => {
                 >
                     <div className="login__inputs grid">
                         <div className="login__content">
-                            <label className="login__label">Name</label>
+                            <label className="login__label" htmlFor={"name"}>Name</label>
                             <input
                                 type="text"
                                 className="login__input"
+                                id="name"
                                 value={userName}
                                 onChange={(e) => setUserName(e.target.value)}
                             />
                         </div>
 
                         <div className="login__content">
-                            <label className="login__label">Email</label>
+                            <label className="login__label" htmlFor={"email"}>Email</label>
                             <input
                                 type="text"
                                 className="login__input"
+                                id="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                             />
                         </div>
                         <div className="login__content">
-                            <label className="login__label">Password</label>
+                            <label className="login__label" htmlFor={"password"}>Password</label>
                             <input
                                 type="text"
                                 className="login__input"
+                                id="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                         </div>
                         <div className="login__content">
-                            <label className="login__label">Confirm Password</label>
+                            <label className="login__label" htmlFor={"confirmPassword"}>Confirm Password</label>
                             <input
                                 type="text"
                                 className="login__input"
+                                id="confirmPassword"
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
                             />

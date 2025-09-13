@@ -9,7 +9,6 @@ import {Autocomplete, Button, Input, Snackbar, Stack} from "@mui/joy";
 import {updateProduct} from "@/app/firebase/firestore";
 import Error from "next/error";
 import Link from "next/link";
-import {margin} from "@mui/system";
 
 export default function Home() {
     const [products, setProducts] = useState<Product[]>([]);

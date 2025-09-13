@@ -1,6 +1,4 @@
 import Product from "@/app/types/Product";
-import Link from "next/link";
-import {Autocomplete, Stack} from "@mui/joy";
 
 interface InventoryTableProps {
     products: Product[];

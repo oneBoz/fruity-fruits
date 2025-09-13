@@ -60,6 +60,8 @@ export default function Home() {
                 resetState();
                 alert("Product added successfully!");
 
+            } else {
+                alert("Fill in blanks!");
             }
         } catch (e) {
             console.error(e);
