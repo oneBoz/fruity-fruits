@@ -3,8 +3,10 @@
 ## *Updates 
 
 1. A more robust role base access control. (page will not render if not logged in)
-2. Fruit items are no longer hard-coded, owner can `add` or `hide` products at the Inventory page (`delete` is not implemented since all past fruits are recorded in order history and sales)
-3. AddProduct page supports drag and drop for images (or browse for mobile devices)
+2. Fruit items are no longer hard-coded, owner can `add` or `hide` products at the Inventory page (**Note** _product names_ are unique!) (`delete` is not implemented since all past fruits are recorded in order history and sales)
+3. Environment variables are now hidden
+4. Changed `window.location.href` to `router.push()`
+5. AddProduct page supports drag and drop for images (or browse for mobile devices)
 ![AddProduct page.png](public/doc/images/AddProduct%20page.png)
 
 
@@ -18,7 +20,7 @@
 
 4. As an owner, I want to see the orders that my customers have submitted, so that I can fulfill their orders.
 
-6. (NEW) As an owner, I want to be able to add new fruits and amend my stock levels, so that I can keep my online store up to date.
+6. **(NEW)** As an owner, I want to be able to add new fruits and amend my stock levels, so that I can keep my online store up to date.
 
 7. As a customer, I want to be able to log in and see my order history, so that I can track my previous purchases.
 
