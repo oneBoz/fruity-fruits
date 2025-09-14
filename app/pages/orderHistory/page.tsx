@@ -5,6 +5,7 @@ import {useState, useEffect} from "react";
 import Order from "@/app/types/Order";
 import {fetchOrdersByUid, fetchProducts} from "@/app/firebase/firestore";
 import Product from "@/app/types/Product";
+import Error from "next/error";
 
 
 export default function Home() {
@@ -26,7 +27,7 @@ export default function Home() {
     }
 
     return (
-        <section className="orderHistory section">
+        uid !== "" ? (<section className="orderHistory section">
             <h2 className="section__title">
                 Past Transactions
             </h2>
@@ -34,5 +35,8 @@ export default function Home() {
             {/*<button onClick={displayOrders}>display</button>*/}
             <HistoryTable orders={orders} />
         </section>
+        ) : (
+            <Error statusCode={404}/>
+        )
     )
 }

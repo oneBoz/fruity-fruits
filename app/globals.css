@@ -593,6 +593,12 @@ img {
     font-size: 1rem;
 }
 
+/*==================== INVENTORY ====================*/
+.inventory__container {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
 /*==================== TRANSACTION ====================*/
 
 .transaction__table {
@@ -748,6 +754,10 @@ img {
     .services__container,
     .footer__container {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .inventory__container {
+        grid-template-columns: repeat(3, 1fr);
     }
 
 }

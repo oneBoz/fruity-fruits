@@ -5,7 +5,7 @@ import Product from "@/app/types/Product";
 import {fetchProducts} from "@/app/firebase/firestore";
 import {useEffect, useState} from "react";
 import {useUser} from "@/app/contexts/UserContext";
-import {Autocomplete, Button, Input, Snackbar, Stack} from "@mui/joy";
+import {Autocomplete, DialogTitle, Input, Modal, ModalDialog, Snackbar, Stack} from "@mui/joy";
 import {updateProduct} from "@/app/firebase/firestore";
 import Error from "next/error";
 import Link from "next/link";
@@ -19,6 +19,9 @@ export default function Home() {
     const [isUpdated, setIsUpdated] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>("");
     const {isOwner} = useUser();
+
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [isQuantityModalOpen, setIsQuantityModalOpen] = useState<boolean>(false);
 
     useEffect(() => {
         if (isOwner === true) {
@@ -68,69 +71,90 @@ export default function Home() {
         isOwner ? (
         <section className="inventory section">
             <InventoryTable products={products}/>
-            <Stack
-                className="container"
-                direction="row"
-                sx={{
-                    margin: 2,
-                }}
-            >
-                <Link href={"/pages/addProduct"} className={"button button--small button--flex add__product__button"}>
-                    Add Product
+            <div className="container grid inventory__container">
+                <Link href={"/pages/addProduct"} className="button button--flex button--small add__product__button">
+                    Add product
+                    <i className="uil uil-share button__icon"></i>
                 </Link>
-                <Autocomplete
-                    options={products.map((product) => product.name)}
-                    onInputChange={(event, newValue) => setTargetHideProduct(newValue)}
-                />
-                <Button
-                    sx={{
-                        backgroundColor: 'hsl(250, 69%, 61%)',
-                        '&:hover': {
-                            backgroundColor: 'hsl(250, 69%, 50%)', // optional hover color
-                        },
-                    }}
-                    onClick={() => hideItem(targetHideProduct)}
-                >Hide/ Unhide Item</Button>
-            </Stack>
+                <button className={"button button--small button--flex add__product__button"}
+                    onClick={() =>setIsModalOpen(true)}
+                >
+                    Hide/ Unhide Item
+                </button>
+                <button className={"button button--small button--flex add__product__button"}
+                        onClick={() => setIsQuantityModalOpen(true)}
+                >
+                    Change stock
+                </button>
+            </div>
 
-            <h2 className="section__title">Change stock</h2>
-            <Stack
-                direction="row"
-                className="container"
-                columnGap={"1rem"}
+
+
+            <Snackbar
+                open={isOpen}
+                autoHideDuration={2000}
+                onClose={() => {setIsOpen(false)}}
+                color={isUpdated? "success" : "danger"}
+                variant="soft"
+                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
             >
-                <Autocomplete
-                    options={products.map((product) => product.name)}
-                    onInputChange={(event, newValue) => setTargetProduct(newValue)}
-                />
-                <Input
-                    onChange={(event) => setTargetStock(Number(event.target.value))}
-                    type="number"
-                    placeholder="Enter Number"
-                    id="stock"
-                />
-                <Button
-                    sx={{
-                        backgroundColor: 'hsl(250, 69%, 61%)',
-                        '&:hover': {
-                            backgroundColor: 'hsl(250, 69%, 50%)', // optional hover color
-                        },
-                    }}
-                    onClick={() => changeQuantity(targetProduct, targetStock)}
-                >
-                    Change quantity
-                </Button>
-                <Snackbar
-                    open={isOpen}
-                    autoHideDuration={2000}
-                    onClose={() => {setIsOpen(false)}}
-                    color={isUpdated? "success" : "danger"}
-                    variant="soft"
-                    anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                >
-                    {isUpdated? "changed successfully!" : errorMessage}
-                </Snackbar>
-            </Stack>
+                {isUpdated? "changed successfully!" : errorMessage}
+            </Snackbar>
+
+            <Modal
+                open={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+            >
+                <ModalDialog>
+                    <DialogTitle sx={{
+                        textAlign: "center",
+                        alignItems: "center"
+                    }}>Hide /unhide item</DialogTitle>
+                    <Autocomplete
+                        options={products.map((product) => product.name)}
+                        onInputChange={(event, newValue) => setTargetHideProduct(newValue)}
+                    />
+                    <button
+                        className="button button--small"
+                        onClick={() => {
+                            hideItem(targetHideProduct)
+                            setIsModalOpen(false);
+                        }}
+                    >
+                        Hide/ unhide Item
+                    </button>
+                </ModalDialog>
+            </Modal>
+            <Modal
+                open={isQuantityModalOpen}
+                onClose={() => setIsQuantityModalOpen(false)}
+            >
+                <ModalDialog>
+                    <DialogTitle sx={{
+                        textAlign: "center",
+                        alignItems: "center"
+                    }}>Change stock</DialogTitle>
+                    <Autocomplete
+                        options={products.map((product) => product.name)}
+                        onInputChange={(event, newValue) => setTargetProduct(newValue)}
+                    />
+                    <Input
+                        onChange={(event) => setTargetStock(Number(event.target.value))}
+                        type="number"
+                        placeholder="Enter Number"
+                        id="stock"
+                    />
+                    <button
+                        className="button button--small"
+                        onClick={() => {
+                            changeQuantity(targetProduct, targetStock)
+                            setIsQuantityModalOpen(false);
+                        }}
+                    >
+                        Change quantity
+                    </button>
+                </ModalDialog>
+            </Modal>
 
         </section>) : (
             <Error statusCode={404} />

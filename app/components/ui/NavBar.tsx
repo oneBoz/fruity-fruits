@@ -5,6 +5,7 @@ import Link from "next/link";
 import {useUser} from "@/app/contexts/UserContext";
 import {executeSignOut} from "@/app/firebase/firebaseAuth";
 import {DialogTitle, Modal, ModalDialog} from "@mui/joy";
+import {useRouter} from "next/navigation";
 
 const NavBar = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -13,7 +14,6 @@ const NavBar = () => {
 
     const handleToggle = () => setIsOpen(true);
     const handleClose = () => setIsOpen(false);
-
     const handleLinkClick = () => setIsOpen(false);
 
     const darkTheme = 'dark-theme'
@@ -38,6 +38,8 @@ const NavBar = () => {
         // Save preference
         localStorage.setItem("selected-theme", newTheme);
     };
+
+    const router = useRouter();
 
     return (
         <nav className="nav container">
@@ -140,9 +142,9 @@ const NavBar = () => {
                     <button
                         className="button button--small"
                         onClick={() => {
-                            setIsModalOpen(false);
                             executeSignOut();
-                            window.location.href="/pages/login";
+                            setIsModalOpen(false);
+                            router.push("/pages/login");
                         }}
                     >
                         Sign out
