@@ -6,7 +6,8 @@
 2. Fruit items are no longer hard-coded, owner can `add` or `hide` products at the Inventory page (**Note** _product names_ are unique!) (`delete` is not implemented since all past fruits are recorded in order history and sales)
 3. Environment variables are now hidden
 4. Changed `window.location.href` to `router.push()`
-5. AddProduct page supports drag and drop for images (or browse for mobile devices)
+5. Added static site generation to retrieve images during build time for `pages/Product` and `pages/StoreSection`
+6. AddProduct page supports drag and drop for images (or browse for mobile devices)
 ![AddProduct page.png](public/doc/images/AddProduct%20page.png)
 
 
