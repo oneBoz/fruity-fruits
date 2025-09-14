@@ -3,8 +3,7 @@ import HistoryTable from "@/app/components/orderHistory/HistoryTable";
 import {useUser} from "@/app/contexts/UserContext";
 import {useState, useEffect} from "react";
 import Order from "@/app/types/Order";
-import {fetchOrdersByUid, fetchProducts} from "@/app/firebase/firestore";
-import Product from "@/app/types/Product";
+import {fetchOrdersByUid} from "@/app/firebase/firestore";
 import Error from "next/error";
 
 
@@ -16,15 +15,6 @@ export default function Home() {
         fetchOrdersByUid(uid? uid : "").then(setOrders)
     }, [uid])
 
-    const [products, setProducts] = useState<Product[]>([]);
-
-    useEffect(() => {
-        fetchProducts().then(setProducts);
-    }, [])
-
-    function displayOrders() {
-        console.log(orders);
-    }
 
     return (
         uid !== "" ? (<section className="orderHistory section">

@@ -6,7 +6,6 @@ import SalesTable from "@/app/components/sales/SalesTable";
 import Order from "@/app/types/Order";
 import User from "@/app/types/User";
 import {useUser} from "@/app/contexts/UserContext";
-import {useRouter} from "next/navigation";
 import Error from "next/error";
 
 export default function Home() {
@@ -14,15 +13,13 @@ export default function Home() {
     const [users, setUsers] = useState<User[]>([]);
     const { isOwner } = useUser();
 
-    const router = useRouter();
-
     useEffect(() => {
         if (isOwner === true) {
             fetchOrders().then(setOrders);
             fetchUsers().then(setUsers);
         }
 
-    }, [orders, isOwner]);
+    }, [isOwner]);
 
     return (
         isOwner ? (

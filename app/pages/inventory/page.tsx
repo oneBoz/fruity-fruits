@@ -28,7 +28,7 @@ export default function Home() {
             fetchProducts().then(setProducts);
         }
 
-    }, [products, isOwner]);
+    }, [isOwner]);
 
     async function hideItem(productName: string) {
         const prevProduct = products.find((product) => product.name === productName);
@@ -42,6 +42,7 @@ export default function Home() {
         await updateProduct(newProduct.id, newProduct);
         setIsUpdated(true);
         setIsOpen(true);
+        fetchProducts().then(setProducts);
     }
 
     async function changeQuantity(productName: string, stock: number) {
@@ -63,6 +64,7 @@ export default function Home() {
         await updateProduct(newProduct.id, newProduct);
         setIsUpdated(true);
         setIsOpen(true);
+        fetchProducts().then(setProducts);
     }
 
 

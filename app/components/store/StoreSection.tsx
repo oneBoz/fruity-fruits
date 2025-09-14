@@ -5,13 +5,17 @@ import {useEffect, useState} from "react";
 import Product from "@/app/types/Product";
 import {fetchProducts} from "@/app/firebase/firestore";
 
-const StoreSection = () => {
+type StoreSectionProps = {
+    initialProducts: Product[];
+}
 
-    const [products, setProducts] = useState<Product[]>([]);
+export default function StoreSection({initialProducts}: StoreSectionProps) {
+
+    const [products, setProducts] = useState<Product[]>(initialProducts);
 
     useEffect(() => {
         fetchProducts().then(setProducts);
-    }, [products])
+    }, [])
 
     return (
         <section className="fruits section" id="store">
@@ -26,5 +30,3 @@ const StoreSection = () => {
         </section>
     )
 }
-
-export default StoreSection;
